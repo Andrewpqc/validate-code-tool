@@ -15,7 +15,7 @@ with open("check_code.gif", "wb") as f:
     img.save(f)
 ```
 
-## Custom picture
+## Custom 
 There is only one function in this package, that is **create_validate_code()**. This function can work normally without any parameter. At the same time, you can pass some parameters to customize the function's behavior. The following table shows the parameters that you can customize.
 
 | parameters | behavior | default value | available value |
