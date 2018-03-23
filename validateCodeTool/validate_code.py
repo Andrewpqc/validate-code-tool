@@ -7,11 +7,13 @@ _upper_cases = _letter_cases.upper()  # 大写字母
 _numbers = ''.join(map(str, range(3, 10)))  # 数字
 init_chars = ''.join((_letter_cases, _upper_cases, _numbers))
 
+
+# this is the main function!
 def create_validate_code(size=(100, 30),chars=init_chars,
         img_type="GIF", mode="RGB", bg_color=(255,255, 200),
         fg_color=(0, 125, 255), font_size=18, font_type="NotoSansCJK-DemiLight.ttc",
         length=4,draw_lines=True,n_line=(1,2),draw_points=True,
-          filter=False,transform=False,point_chance=2):
+          withfilter=False,transform=False,point_chance=2):
     """
     @todo: 生成验证码图片
     @param size: 图片的大小，格式（宽，高），默认为(120, 30)
@@ -27,11 +29,12 @@ def create_validate_code(size=(100, 30),chars=init_chars,
     @param n_lines: 干扰线的条数范围，格式元组，默认为(1, 2)，只有draw_lines为True时有效
     @param draw_points: 是否画干扰点
     @param transform: 是否添加扭曲
-    @param filter:是否添加滤镜
+    @param withfilter:是否添加滤镜
     @param point_chance: 干扰点出现的概率，大小范围[0, 100]
     @return: [0]: PIL Image实例
     @return: [1]: 验证码图片中的字符串
     """
+
     width, height = size  # 宽高
     # 创建图形
     img = Image.new(mode, size, bg_color)
@@ -74,19 +77,24 @@ def create_validate_code(size=(100, 30),chars=init_chars,
                   strs, font=font, fill=fg_color)
 
         return ''.join(c_chars)
+
     if draw_lines:
         create_lines()
+
     if draw_points:
         create_points()
+
     strs = create_strs()
+
     if transform:
         params = [1 - float(random.randint(1, 2)) / 1000, 0, 0, 0,
                   1 - float(random.randint(1, 10)) / 1000,
                   float(random.randint(1, 2)) / 500, 0.001,
                   float(random.randint(1, 2)) / 500] #图形扭曲参数
         img = img.transform(size, Image.PERSPECTIVE, params)  # 创建扭曲
-    if filter:
+    if withfilter:
         img = img.filter(ImageFilter.EDGE_ENHANCE_MORE)  # 滤镜，边界加强（阈值更大）
+   
     return img, strs
 
 if __name__ == '__main__':
