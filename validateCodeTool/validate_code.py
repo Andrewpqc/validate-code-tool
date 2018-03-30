@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 #-*- coding:utf-8 -*-
 import random
+import os
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 _letter_cases = "abcdefghjkmnpqrstuvwxy"  # 小写字母，去除可能干扰的i，l，o，z
 _upper_cases = _letter_cases.upper()  # 大写字母
@@ -70,7 +71,7 @@ def create_validate_code(size=(100, 30),chars=init_chars,
         c_chars = get_chars()
         strs = ' %s ' % ' '.join(c_chars)  # 每个字符前后以空格隔开
 
-        font = ImageFont.truetype(font_type, font_size)
+        font = ImageFont.truetype(os.path.join(os.getcwd(),font_type), font_size)
         font_width, font_height = font.getsize(strs)
 
         draw.text(((width - font_width) / 3, (height - font_height) / 3),
@@ -94,7 +95,7 @@ def create_validate_code(size=(100, 30),chars=init_chars,
         img = img.transform(size, Image.PERSPECTIVE, params)  # 创建扭曲
     if withfilter:
         img = img.filter(ImageFilter.EDGE_ENHANCE_MORE)  # 滤镜，边界加强（阈值更大）
-   
+
     return img, strs
 
 if __name__ == '__main__':
