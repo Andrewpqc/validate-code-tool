@@ -40,6 +40,9 @@ There is only one function in this package, that is **create_validate_code()**. 
 
 ## Example
 ``` bash
-$ git clone https://github.com/Andrewpqc/authentication_code_generator.git && cd authentication_code_generator/example_app && pip install -r requirements.txt && python example_app.py 
+$ git clone https://github.com/Andrewpqc/authentication_code_generator.git 
+&& cd authentication_code_generator/example_app
+&& pip install -r requirements.txt 
+&& python example_app.py 
 ```
 Then you can go to your browser at "http://127.0.0.1:5000/example-app/" to see the example!
